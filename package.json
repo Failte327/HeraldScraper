@@ -1,0 +1,18 @@
+{
+  "name": "atlasheraldbot",
+  "version": "1.0.0",
+  "description": "Bot that will scrape the Atlas Herald and display it in Discord",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "supersecretinfobot"
+  ],
+  "author": "Failte",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
+    "request-promise": "^4.2.6",
+  }
+}
