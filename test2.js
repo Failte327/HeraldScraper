@@ -7,7 +7,11 @@ const url='https://herald.atlasfreeshard.com/playerstat.php?player_name=Villanel
 
 got(url).then(response => {
     const $ = cheerio.load(response.body);
-    console.log($('tr')[0].children);
+    $('td').each((i, raw) => {
+        const fullCode=raw.children;
+        const stats=fullCode[0].data;
+        console.log(stats);
+    })
 }).catch(err => {
     console.log(err);
 })
