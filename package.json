@@ -2,7 +2,7 @@
   "name": "atlasheraldbot",
   "version": "1.0.0",
   "description": "Bot that will scrape the Atlas Herald and display it in Discord",
-  "main": "main.js",
+  "main": "test2.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,7 +12,11 @@
   "author": "Failte",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.10",
-    "request-promise": "^4.2.6",
+    "cheerio": "^1.0.0-rc.3",
+    "discord.js": "^12.5.3",
+    "got": "^10.4.0",
+    "puppeteer": "^10.4.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
   }
 }
