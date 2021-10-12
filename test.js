@@ -5,7 +5,7 @@ const url = 'https://herald.atlasfreeshard.com/playerstat.php?player_name=Villan
 rp(url)
     .then(function(html){
         //success!
-        console.log($('table > td', html));
+        console.log(html);
     })
     .catch(function(err){
         //handle error
