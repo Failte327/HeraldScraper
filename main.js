@@ -83,7 +83,6 @@ client.on ('message', msg => {
   const myoutput =charinfo[1] + "\n" + charinfo[2] + "\n" + charinfo[3] + "\n" + charinfo[4] + "\n" + charinfo[5] + "\n" + charinfo[6] + "\n" + charinfo[7] + "\n" + charinfo[8]
 //end variable
 
-//msg.channel.send(myoutput);
 const channel = await client.channels.fetch('760950403793420362');
 const statsEmbed =
       {
@@ -129,9 +128,9 @@ const statsEmbed =
         ],
         "url": `https://herald.atlasfreeshard.com/playerstat.php?player_name=`+playerName
   }
-channel.send({ embeds: [statsEmbed] });
+channel.send({ embed: statsEmbed });
 }
-
+// channel embed message
 main();
 
 }});
