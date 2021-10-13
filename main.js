@@ -116,11 +116,6 @@ client.on('message', msg => {
                     "inline": true
                 },
                 {
-                  name: '\u200b',
-                  value: '\u200b',
-                  inline: false,
-                },
-                {
                     "name": `Realmpoints`,
                     "value": charinfo[10],
                     "inline": true
@@ -134,11 +129,6 @@ client.on('message', msg => {
                     "name": `Class Rank`,
                     "value": charinfo[5],
                     "inline": true
-                },
-                {
-                  name: '\u200b',
-                  value: '\u200b',
-                  inline: false,
                 },
                 {
                     "name": `Player Kills`,
