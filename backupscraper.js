@@ -1,18 +1,11 @@
 const request = require("request-promise");
 const cheerio = require("cheerio");
 const charinfo = []
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const prefix = "!who";
-const lib = require('lib')({token: process.env.STDLIB_SECRET_TOKEN});
 
-client.on ('message', msg => {
-    if (!msg.content.startsWith(prefix)) return; {
-    const args= msg.content;
-    const args1=args.split(' ');
-    let playerName = args1[1];
-    async function main() {
-    const result = await request.get("https://herald.atlasfreeshard.com/playerstat.php?player_name=" + playerName);
+
+
+async function main() {
+    const result = await request.get("https://herald.atlasfreeshard.com/playerstat.php?player_name=teehehehe");
     const $ = cheerio.load(result);
 
 //finds name but it changes location name changes based on which realm
@@ -69,71 +62,15 @@ client.on ('message', msg => {
         charinfo[8]= $(element).text();
     })
 //end total deathblows
-    $("#content > table > tbody > tr:nth-child(3) > td:nth-child(2)").each((index, element) => {
-        charinfo[9]= $(element).text();
-    })
-//end rank
-    $("#content > table > tbody > tr:nth-child(4) > td:nth-child(2)").each((index, element) => {
-        charinfo[10]= $(element).text();
-    })
-//end realmpoints
   charinfo[1]=charinfo[1].replace(/\u00a0/g, ""); 
 //end
 //forms our output can use any of the variable in any order "\n" is new line can also do " " for space etc
   const myoutput =charinfo[1] + "\n" + charinfo[2] + "\n" + charinfo[3] + "\n" + charinfo[4] + "\n" + charinfo[5] + "\n" + charinfo[6] + "\n" + charinfo[7] + "\n" + charinfo[8]
 //end variable
 
-//msg.channel.send(myoutput);
-const channel = await client.channels.fetch('760950403793420362');
-const statsEmbed =
-      {
-        "type": "rich",
-        "title": charinfo[1],
-        "description": "",
-        "color": 0x3869ed,
-        "fields": [
-          {
-            "name": charinfo[2],
-            "value": charinfo[3],
-            "inline": true
-          },
-          {
-            "name": `Rank`,
-            "value": charinfo[9]
-          },
-          {
-            "name": `Realmpoints`,
-            "value": charinfo[10],
-            "inline": true
-          },
-          {
-            "name": `Rank on the Server`,
-            "value": charinfo[4]
-          },
-          {
-            "name": `Rank in the Class`,
-            "value": charinfo[5]
-          },
-          {
-            "name": `Total Player Kills`,
-            "value": charinfo[6]
-          },
-          {
-            "name": `Total Solo Kills`,
-            "value": charinfo[7]
-          },
-          {
-              "name": `Total Deathblows`,
-              "value": charinfo[8]
-          }
-        ],
-        "url": `https://herald.atlasfreeshard.com/playerstat.php?player_name=`+playerName
-  }
-channel.send({ embeds: [statsEmbed] });
+  console.log(myoutput)
 }
 
 main();
 
-}});
 
-client.login('ODk3MjQ4MDM0ODg5NTU1OTcw.YWS5WQ.XEV6xLPNFbbXwYlCvOVNuLNYt04')
