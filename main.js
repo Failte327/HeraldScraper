@@ -15,7 +15,8 @@ client.on('message', msg => {
         async function main() {
             const result = await request.get("https://herald.atlasfreeshard.com/playerstat.php?player_name=" + playerName);
             const $ = cheerio.load(result);
-            const channel = await client.channels.fetch('760950403793420362');
+            //Channel ID, THIS NEEDS TO CHANGE BASED ON WHAT DISCORD CHANNEL YOU PUT IT IN. It's the second long string of numbers in the URL.
+            const channel = await client.channels.fetch('897980096395227237');
 
             if ($("#content > table > tbody > tr.herald_bg_")!=0)
                 channel.send("No such player found");
