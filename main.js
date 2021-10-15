@@ -189,7 +189,7 @@ client.on('message', msg => {
             const statsEmbed2 =
             {
                 "type": "rich",
-                "title": "Top 7 Solo Kills",
+                "title": "Top 5 Solo Kills",
                 "description": "",
                 "color": color,
                 "fields": [
@@ -267,36 +267,6 @@ client.on('message', msg => {
                     {
                         "name": '\u200b',
                         "value": soloinfo[19],
-                        "inline": true
-                    },
-                    {
-                        "name": '\u200b',
-                        "value": soloinfo[20] + ' [' + soloinfo[21].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[21].substr(0, soloinfo[21].indexOf(' ')) + ')',
-                        "inline": true
-                    },
-                    {
-                        "name": '\u200b',
-                        "value": soloinfo[22],
-                        "inline": true
-                    },
-                    {
-                        "name": '\u200b',
-                        "value": soloinfo[23],
-                        "inline": true
-                    },
-                    {
-                        "name": '\u200b',
-                        "value": soloinfo[24] + ' [' + soloinfo[25].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[21].substr(0, soloinfo[25].indexOf(' ')) + ')',
-                        "inline": true
-                    },
-                    {
-                        "name": '\u200b',
-                        "value": soloinfo[26],
-                        "inline": true
-                    },
-                    {
-                        "name": '\u200b',
-                        "value": soloinfo[27],
                         "inline": true
                     },
                 ],
