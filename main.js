@@ -1,17 +1,78 @@
 const request = require("request-promise");
 const cheerio = require("cheerio");
+const ChannelID = '897980096395227237';
+const DiscordBotToken = 'ODk3MjQ4MDM0ODg5NTU1OTcw.YWS5WQ.XEV6xLPNFbbXwYlCvOVNuLNYt04';
 const charinfo = []
 const soloinfo = []
 const sololink = []
 var color = "";
-const ChannelID='897980096395227237' //Channel ID
-const DiscordBotToken='ODk3MjQ4MDM0ODg5NTU1OTcw.YWS5WQ.XEV6xLPNFbbXwYlCvOVNuLNYt04' //Bot Token
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const prefix = "!who";
 const prefix2 = "!solo";
+const prefix3 = "!deathblows";
+const prefix4 = "!dbs";
+const prefix5 = "!db";
+const prefix6 = "!kills";
+const prefix7 = "!rp";
+const prefix8 = "!rps";
+const prefix9 = "!realmpoints";
+const prefix10 = "!guild";
+const prefix11 = "!guilds";
+const prefix12 = "!info";
+const prefix13 = "!help";
+const prefix14 = "!commands";
+//const BroadcastInfoTimer=28800000;
 
-client.on('message', msg => {
+//client.on('ready', () => {
+//    var channel = client.channels.cache.get(ChannelID)
+//    const spamEmbed =
+//    {
+//        "type": "rich",
+//        "title": "Atlas Herald Bot Commands",
+//        "description": "",
+//        "color": color,
+//        "fields": [
+//            {
+//                "name": "Top 5 Guilds",
+//                "value": "!guild or !guilds",
+//                "inline": true
+//            },
+//            {
+//               "name": `Top 5 Players for Deathblows`,
+//                "value": "!db, !dbs, !deathblows",
+//                "inline": true
+//            },
+//            {
+//                "name": `Top 5 Players for Solo Kills`,
+//                "value": "!solo",
+//                "inline": true
+//            },
+//            {
+//                "name": `Top 5 Players for Realmpoints`,
+//                "value": "!rp, !rps, !realmpoints",
+//                "inline": true
+//            },
+//            {
+//                "name": `Top 5 Players for Kills`,
+//                "value": "!kills",
+//                "inline": true
+//            },
+//            {
+//                "name": `Player Lookup`,
+//                "value": "!who Name",
+//                "inline": true
+//            }
+//        ],
+//
+//    }
+//    
+//    setInterval(() => {
+//        channel.send({ embed: spamEmbed });
+//    }, BroadcastInfoTimer);
+//});
+
+client.on('message', msg => { 
     if (msg.content.startsWith(prefix)) {
         const args = msg.content;
         const args1 = args.split(' ');
@@ -276,6 +337,529 @@ client.on('message', msg => {
         }
 
         main2();
+    }
+    if (msg.content.startsWith(prefix3) || msg.content.startsWith(prefix4) || msg.content.startsWith(prefix5)) {
+        async function main2() {
+            const result = await request.get("https://herald.atlasfreeshard.com/index.php?show=top_deathblows");
+            const $ = cheerio.load(result);
+            const channel = await client.channels.fetch(ChannelID);
+            let z = 0;
+            let x = 1;
+            for (let i = 0; i < 10; i++) {
+                x++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(1)").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(2) > a").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(3)").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(4)").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+            }
+
+            const statsEmbed2 =
+            {
+                "type": "rich",
+                "title": "Top 5 Deathblows",
+                "description": "",
+                "color": color,
+                "fields": [
+                    {
+                        "name": '# Name',
+                        "value": soloinfo[0] + ' [' + soloinfo[1].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[1].substr(0, soloinfo[1].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": 'Class/Race',
+                        "value": soloinfo[2],
+                        "inline": true
+                    },
+                    {
+                        "name": 'Deathblows',
+                        "value": soloinfo[3],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[4] + ' [' + soloinfo[5].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[5].substr(0, soloinfo[5].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[6],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[7],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+
+                        "value": soloinfo[8] + ' [' + soloinfo[9].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[9].substr(0, soloinfo[9].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[10],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[11],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[12] + ' [' + soloinfo[13].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[13].substr(0, soloinfo[13].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[14],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[15],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[16] + ' [' + soloinfo[17].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[17].substr(0, soloinfo[17].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[18],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[19],
+                        "inline": true
+                    },
+                ],
+                "url": `https://herald.atlasfreeshard.com/index.php?show=top_deathblows`
+            }
+            channel.send({ embed: statsEmbed2 });
+        }
+
+        main2();
+    }
+    if (msg.content.startsWith(prefix6)) {
+        async function main2() {
+            const result = await request.get("https://herald.atlasfreeshard.com/index.php?show=top_total_kills");
+            const $ = cheerio.load(result);
+            const channel = await client.channels.fetch(ChannelID);
+            let z = 0;
+            let x = 1;
+            for (let i = 0; i < 10; i++) {
+                x++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(1)").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(2) > a").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(3)").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(4)").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+            }
+
+            const statsEmbed2 =
+            {
+                "type": "rich",
+                "title": "Top 5 Kills",
+                "description": "",
+                "color": color,
+                "fields": [
+                    {
+                        "name": '# Name',
+                        "value": soloinfo[0] + ' [' + soloinfo[1].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[1].substr(0, soloinfo[1].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": 'Class/Race',
+                        "value": soloinfo[2],
+                        "inline": true
+                    },
+                    {
+                        "name": 'Kills',
+                        "value": soloinfo[3],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[4] + ' [' + soloinfo[5].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[5].substr(0, soloinfo[5].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[6],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[7],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+
+                        "value": soloinfo[8] + ' [' + soloinfo[9].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[9].substr(0, soloinfo[9].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[10],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[11],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[12] + ' [' + soloinfo[13].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[13].substr(0, soloinfo[13].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[14],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[15],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[16] + ' [' + soloinfo[17].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[17].substr(0, soloinfo[17].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[18],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[19],
+                        "inline": true
+                    },
+                ],
+                "url": `https://herald.atlasfreeshard.com/index.php?show=top_total_kills`
+            }
+            channel.send({ embed: statsEmbed2 });
+        }
+
+        main2();
+    }
+    if (msg.content.startsWith(prefix7) || msg.content.startsWith(prefix8) || msg.content.startsWith(prefix9)) {
+        async function main2() {
+            const result = await request.get("https://herald.atlasfreeshard.com/index.php?show=players");
+            const $ = cheerio.load(result);
+            const channel = await client.channels.fetch(ChannelID);
+            let z = 0;
+            let x = 1;
+            for (let i = 0; i < 10; i++) {
+                x++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(1)").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(2) > a").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(3)").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(4)").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+            }
+
+            const statsEmbed2 =
+            {
+                "type": "rich",
+                "title": "Top 5 Realm Points",
+                "description": "",
+                "color": color,
+                "fields": [
+                    {
+                        "name": '# Name',
+                        "value": soloinfo[0] + ' [' + soloinfo[1].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[1].substr(0, soloinfo[1].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": 'Class/Race',
+                        "value": soloinfo[2],
+                        "inline": true
+                    },
+                    {
+                        "name": 'Realm Points',
+                        "value": soloinfo[3],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[4] + ' [' + soloinfo[5].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[5].substr(0, soloinfo[5].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[6],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[7],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+
+                        "value": soloinfo[8] + ' [' + soloinfo[9].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[9].substr(0, soloinfo[9].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[10],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[11],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[12] + ' [' + soloinfo[13].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[13].substr(0, soloinfo[13].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[14],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[15],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[16] + ' [' + soloinfo[17].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[17].substr(0, soloinfo[17].indexOf(' ')) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[18],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[19],
+                        "inline": true
+                    },
+                ],
+                "url": `https://herald.atlasfreeshard.com/index.php?show=players`
+            }
+            channel.send({ embed: statsEmbed2 });
+        }
+
+        main2();
+    }
+    if (msg.content.startsWith(prefix10) || msg.content.startsWith(prefix11)) {
+        async function main2() {
+            const result = await request.get("https://herald.atlasfreeshard.com/index.php?show=top_guilds");
+            const $ = cheerio.load(result);
+            const channel = await client.channels.fetch(ChannelID);
+            let z = 0;
+            let x = 1;
+            for (let i = 0; i < 10; i++) {
+                x++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(1)").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(2) > a").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(3)").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+                $("#content > table > tbody > tr:nth-child(" + x + ") > td:nth-child(4)").each((index, element) => {
+                    soloinfo[z] = $(element).text();
+                });
+                z++;
+            }
+
+            const statsEmbed2 =
+            {
+                "type": "rich",
+                "title": "Top 5 Guilds",
+                "description": "",
+                "color": color,
+                "fields": [
+                    {
+                        "name": '# Guild',
+                        "value": soloinfo[0] + ' [' + soloinfo[1].trim() + '](https://herald.atlasfreeshard.com/guildstat.php?guild_name=' + encodeURIComponent(soloinfo[1]) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": 'Realm Points',
+                        "value": soloinfo[2],
+                        "inline": true
+                    },
+                    {
+                        "name": 'Members',
+                        "value": soloinfo[3],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[4] + ' [' + soloinfo[5].trim() + '](https://herald.atlasfreeshard.com/guildstat.php?guild_name=' + encodeURIComponent(soloinfo[5]) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[6],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[7],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+
+                        "value": soloinfo[8] + ' [' + soloinfo[9].trim() + '](https://herald.atlasfreeshard.com/guildstat.php?guild_name=' + encodeURIComponent(soloinfo[9]) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[10],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[11],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[12] + ' [' + soloinfo[13].trim() + '](https://herald.atlasfreeshard.com/guildstat.php?guild_name=' + encodeURIComponent(soloinfo[13]) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[14],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[15],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[16] + ' [' + soloinfo[17].trim() + '](https://herald.atlasfreeshard.com/guildstat.php?guild_name=' + encodeURIComponent(soloinfo[17]) + ')',
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[18],
+                        "inline": true
+                    },
+                    {
+                        "name": '\u200b',
+                        "value": soloinfo[19],
+                        "inline": true
+                    },
+                ],
+                "url": `https://herald.atlasfreeshard.com/index.php?show=top_guilds`
+            }
+            channel.send({ embed: statsEmbed2 });
+        }
+
+        main2();
+    }
+    if (msg.content.startsWith(prefix12) || msg.content.startsWith(prefix13) || msg.content.startsWith(prefix14)) {
+        const args = msg.content;
+        const args1 = args.split(' ');
+        let playerName = args1[1];
+        async function main() {
+            const $ = cheerio.load(result);
+            const channel = await client.channels.fetch(ChannelID);
+            const statsEmbed =
+            {
+                "type": "rich",
+                "title": "Atlas Herald Bot Commands",
+                "description": "",
+                "color": color,
+                "fields": [
+                    {
+                        "name": "Top 5 Guilds",
+                        "value": "!guild or !guilds",
+                        "inline": true
+                    },
+                    {
+                        "name": `Top 5 Players for Deathblows`,
+                        "value": "!db, !dbs, !deathblows",
+                        "inline": true
+                    },
+                    {
+                        "name": `Top 5 Players for Solo Kills`,
+                        "value": "!solo",
+                        "inline": true
+                    },
+                    {
+                        "name": `Top 5 Players for Realmpoints`,
+                        "value": "!rp, !rps, !realmpoints",
+                        "inline": true
+                    },
+                    {
+                        "name": `Top 5 Players for Kills`,
+                        "value": "!kills",
+                        "inline": true
+                    },
+                    {
+                        "name": `Player Lookup`,
+                        "value": "!who Name",
+                        "inline": true
+                    }
+                ],
+                
+            }
+            channel.send({ embed: statsEmbed });
+        }
+        main();
     }
 });
 

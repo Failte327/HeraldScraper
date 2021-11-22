@@ -269,36 +269,6 @@ client.on('message', msg => {
                         "value": soloinfo[19],
                         "inline": true
                     },
-                    {
-                        "name": '\u200b',
-                        "value": soloinfo[20] + ' [' + soloinfo[21].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[21].substr(0, soloinfo[21].indexOf(' ')) + ')',
-                        "inline": true
-                    },
-                    {
-                        "name": '\u200b',
-                        "value": soloinfo[22],
-                        "inline": true
-                    },
-                    {
-                        "name": '\u200b',
-                        "value": soloinfo[23],
-                        "inline": true
-                    },
-                    {
-                        "name": '\u200b',
-                        "value": soloinfo[24] + ' [' + soloinfo[25].trim() + '](https://herald.atlasfreeshard.com/playerstat.php?player_name=' + soloinfo[21].substr(0, soloinfo[25].indexOf(' ')) + ')',
-                        "inline": true
-                    },
-                    {
-                        "name": '\u200b',
-                        "value": soloinfo[26],
-                        "inline": true
-                    },
-                    {
-                        "name": '\u200b',
-                        "value": soloinfo[27],
-                        "inline": true
-                    },
                 ],
                 "url": `https://herald.atlasfreeshard.com/index.php?show=top_solo_kills`
             }
