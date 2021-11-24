@@ -19,9 +19,9 @@ const prefix8 = "!rps";
 const prefix9 = "!realmpoints";
 const prefix10 = "!guild";
 const prefix11 = "!guilds";
-const prefix12 = "!info";
-const prefix13 = "!help";
-const prefix14 = "!commands";
+const prefix12 = "!hinfo";
+const prefix13 = "!hhelp";
+const prefix14 = "!hcommands";
 //const BroadcastInfoTimer=28800000;
 
 //client.on('ready', () => {
@@ -815,7 +815,6 @@ client.on('message', msg => {
         const args1 = args.split(' ');
         let playerName = args1[1];
         async function main() {
-            const $ = cheerio.load(result);
             const channel = await client.channels.fetch(ChannelID);
             const statsEmbed =
             {
