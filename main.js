@@ -1,7 +1,7 @@
 const request = require("request-promise");
 const cheerio = require("cheerio");
-const ChannelID = '897980096395227237';
-const DiscordBotToken = 'ODk3MjQ4MDM0ODg5NTU1OTcw.YWS5WQ.XEV6xLPNFbbXwYlCvOVNuLNYt04';
+const ChannelID = 'Insert your channel id here';
+const DiscordBotToken = 'Insert your token here';
 const charinfo = []
 const soloinfo = []
 const sololink = []
